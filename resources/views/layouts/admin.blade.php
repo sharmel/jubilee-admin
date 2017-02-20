@@ -107,10 +107,10 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Vendors<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{URL::to('/vendors')}}">All Vendors</a>
+                                <a href="{{URL::to('admin/vendors')}}">All Vendors</a>
                             </li>
                             <li>
-                                <a href="{{URL::to('/vendors/create')}}">Create Vendor</a>
+                                <a href="{{URL::to('admin/vendors/create')}}">Create Vendor</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -120,10 +120,10 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Services<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{URL::to('/services')}}">All Services</a>
+                                <a href="{{URL::to('admin/services')}}">All Services</a>
                             </li>
                             <li>
-                                <a href="{{URL::to('services/create')}}">Create Service</a>
+                                <a href="{{URL::to('admin/services/create')}}">Create Service</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

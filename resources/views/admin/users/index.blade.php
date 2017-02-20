@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('content')
 
+
+<h1>Users</h1>
+
 @if(Session::has('user_update'))
 
 	<p class="alert alert-info">{{session('user_update')}}</p>
@@ -10,8 +13,6 @@
 
 	<p class="alert alert-success">{{session('user_added')}}</p>
 @endif
-
-<h1>Users</h1>
 
 <table class="table table-striped">
     <thead>
