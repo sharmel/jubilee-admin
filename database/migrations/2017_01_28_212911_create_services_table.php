@@ -18,8 +18,7 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('image_src');
-            $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

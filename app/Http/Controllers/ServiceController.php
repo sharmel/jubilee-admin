@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Service;
+use Illuminate\Support\Facades\Session;
 
 class ServiceController extends Controller
 {
@@ -15,9 +16,9 @@ class ServiceController extends Controller
     public function index()
     {
         //
-        $services = Service::all(['id', 'name']);
-
-        return view('pages.private.vendors.create', compact('services', $services));
+        $services = Service::all();
+//dd($services);
+        return view('admin.services.index', compact('services', $services));
     }
 
     /**
@@ -27,9 +28,9 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        /*$services = Service::all(['id', 'name','image_src']);
+        //$services = Service::all();
 
-        return $services;*/
+        return view('admin.services.create');
     }
 
     /**
@@ -41,6 +42,36 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+
+            'name'=>'required',
+            'description'=>'required',
+            'image'=>'image',
+            'image'=>'required'
+            ]);
+
+        $service = new Service;
+        $service->name = $request->name;
+        $service->description = $request->description;
+        
+        if($images = $request->file('image')){
+            //dd($images);
+            foreach ($images as $image) {
+                
+                $image_name = $image->getClientOriginalName();
+
+                $service->image_src = 'images/'.$image_name;
+
+                $image->move('images', $image_name);
+            }
+            
+        }
+
+        $service->save();
+
+        Session::flash('service_added', 'Service successfully added');
+        return redirect('admin/services');
     }
 
     /**
@@ -63,6 +94,9 @@ class ServiceController extends Controller
     public function edit($id)
     {
         //
+        $service = Service::findorfail($id);
+
+        return view('admin.services.edit', compact('service', $service));
     }
 
     /**
@@ -75,6 +109,37 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $service = Service::findorfail($id);
+
+        $this->validate($request, [
+
+            'name'=>'required',
+            'description'=>'required'
+            ]);
+
+        $service->name = $request->name;
+        $service->description = $request->description;
+
+        if($images = $request->file('image_src')){
+            //dd($images);
+
+            foreach ($images as $image) {
+                //dd($image);
+                $image_name = $image->getClientOriginalName();
+
+                $service->image_src = 'images/'.$image_name;
+
+                $image->move('images', $image_name);
+            }
+            
+        }
+        //dd($service);
+        $service->save();
+
+        Session::flash('service_update','Service successfully updated');
+
+        return redirect('admin/services');
     }
 
     /**
