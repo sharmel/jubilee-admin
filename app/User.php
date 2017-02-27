@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
+use App\Contact;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class User extends Authenticatable
 {
@@ -41,5 +45,18 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+    public function owner(){
+
+        return false;
+    }
+    public static function get_vendor_id(){
+        
+        $id = DB::table('vendor_contacts')
+                    ->where('email', '=', $email)
+                    ->get();
+
+        return $id;
+
     }
 }

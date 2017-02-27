@@ -2,6 +2,9 @@
 @section('content')
 <h1>Edit vendor</h1>
 
+@if (Auth::user()->isAdmin())
+   <p>Admin</p>
+@endif
 {!! Form::model($vendor, ['method'=>'PATCH', 'action'=>['VendorController@update',$vendor->id]]) !!}
 <div class="row">
 
